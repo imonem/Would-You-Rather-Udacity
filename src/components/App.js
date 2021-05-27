@@ -1,14 +1,23 @@
+// import Button from "@material-ui/core/Button";
+import React, { useEffect } from "react";
+// import FormControl from "@material-ui/core/FormControl";
+// import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import { useDispatch, useSelector } from "react-redux";
+import { handleGetQuestions, handleUserLoginData } from "../actions/shared";
+import Dashboard from "./Dashboard";
+
 function App() {
+  const authedUser = useSelector((state) => state.authedUser);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(handleUserLoginData());
+    dispatch(handleGetQuestions());
+  }, [dispatch]);
+
   return (
     <div className='App'>
-      <h1>Login page</h1>
-      <h1>Register New User</h1>
-      <h1>Loading Bar</h1>
-      <h1>NAV</h1>
-      <h1>Dashboard</h1>
-      <h1>New Question</h1>
-      <h1>Leader Board</h1>
-      <h1>Footer</h1>
+      {authedUser === null ? <h3>Loading...</h3> : <Dashboard />}
     </div>
   );
 }
