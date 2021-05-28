@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Question from "./Question";
 
@@ -8,7 +8,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   return (
-    <Fragment>
+    <div className='container'>
       <h1>Dashboard</h1>
       <ul>
         {Object.keys(questions).map((qid) => (
@@ -17,7 +17,7 @@ const Dashboard = () => {
           </li>
         ))}
       </ul>
-    </Fragment>
+    </div>
   );
 };
 

@@ -16,7 +16,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className='App'>
+    <div className='container'>
       {authedUser === null ? <h3>Loading...</h3> : <Dashboard />}
     </div>
   );
