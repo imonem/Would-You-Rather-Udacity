@@ -30,8 +30,8 @@ const LoginPage = () => {
       <Form>
         <Container className='text-center mt-5 mb-5'>
           <Card>
-            <h1>Would you rather</h1>
-            <h2>Welcome</h2>
+            <h2>Welcome to</h2>
+            <h1>Would You Rather Game</h1>
           </Card>
           <Card>
             <Form.Group controlId='login'>
@@ -52,10 +52,9 @@ const LoginPage = () => {
                       </option>
                     ))}
                   </Form.Control>
-                </Col>
-                <Col xs='auto' className='my-5'>
                   <Button
-                    className='secondary'
+                    block
+                    className='my-4'
                     type='submit'
                     onClick={handleSubmit}
                   >

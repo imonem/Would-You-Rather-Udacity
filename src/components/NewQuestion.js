@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { handleAddQuestion } from "../actions/questions";
 
 function NewQuestion() {
-  const [optionOneText, setOptionOneText] = useState({
-    optionOne: { text: "" },
-  });
-  const [optionTwoText, setOptionTwoText] = useState({
-    optionTwo: { text: "" },
-  });
+  const [optionOneText, setOptionOneText] = useState("");
+  const [optionTwoText, setOptionTwoText] = useState("");
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const text = e.target.value;
@@ -16,9 +15,9 @@ function NewQuestion() {
     // console.log(optionTwoText);
     switch (e.target.id) {
       case "optionOne":
-        return setOptionOneText({ optionOne: { text: text } });
+        return setOptionOneText(text);
       case "optionTwo":
-        return setOptionTwoText({ optionTwo: { text: text } });
+        return setOptionTwoText(text);
       default:
         return;
     }
@@ -26,13 +25,13 @@ function NewQuestion() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const text = { ...optionOneText, ...optionTwoText };
+    const text = { optionOneText, optionTwoText };
 
-    // todo: add text to Store
+    dispatch(handleAddQuestion(text));
 
     console.log("New question", text);
-    setOptionOneText({ optionOne: { text: text } });
-    setOptionTwoText({ optionTwo: { text: text } });
+    setOptionOneText("");
+    setOptionTwoText("");
   };
   return (
     <Container className='center'>

@@ -17,11 +17,11 @@ function App() {
     hideLoading();
   }, [dispatch]);
   return (
-    <NewQuestion />
-    // <div>
-    //   <LoadingBar />
-    //   {authedUser === null ? <LoginPage /> : <Dashboard />}
-    // </div>
+    <div>
+      <LoadingBar />
+      {/* <NewQuestion /> */}
+      {authedUser === null ? <LoginPage /> : <NewQuestion />}
+    </div>
   );
 }
 
