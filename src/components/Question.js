@@ -1,5 +1,7 @@
 import React from "react";
+import { getAuthorInfo, formatTime } from "../utils/helpers";
 import { useSelector, useDispatch } from "react-redux";
+import { Col, Image, Row } from "react-bootstrap";
 
 function Question(qid) {
   const authedUser = useSelector((state) => state.authedUser);
@@ -8,26 +10,35 @@ function Question(qid) {
   const dispatch = useDispatch();
 
   const question = questions[qid.id];
-  const user = users[authedUser];
-
-  console.log(question, user);
+  //   console.log(`this is qid.id: ${qid.id}, and this is the qid: ${qid}`);
+  const [name, avatar] = getAuthorInfo(question, users);
 
   return (
-    <div className='tweet'>
-      <div>Author: {question.author}</div>
-      <div className='tweet-info'>Would You Rather ...</div>
-      <div>{`Option one: ${question.optionOne.text} votes: ${question.optionOne.votes.length}`}</div>
-      <div>{`Option two: ${question.optionTwo.text} votes: ${question.optionTwo.votes.length}`}</div>
+    <div className='container'>
+      <Row>
+        <Col>
+          <Image
+            src={avatar}
+            alt={`Avatar of ${name}`}
+            rounded
+            style={{ maxWidth: 100 }}
+          />
+          <span> {name} asks would you rather ...</span>
+        </Col>
+      </Row>
+      <div className='row'>
+        <div>{`Option one: ${question.optionOne.text}`}</div>
+        <div>{`votes: ${question.optionOne.votes.length}`}</div>
+        <div>{`Option two: ${question.optionTwo.text}`}</div>
+        <div>{`votes: ${question.optionTwo.votes.length}`}</div>
+        <div>
+          <span className='card-subtitle mb-2 text-muted'>{` Asked on ${formatTime(
+            question.timestamp
+          )}`}</span>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default Question;
-
-{
-  /* <img
-src={user.avatarURL}
-alt={`Avatar of ${user.name}`}
-className='avatar'
-/> */
-}
