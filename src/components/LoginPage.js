@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Form, Col, Button } from "react-bootstrap";
+import { Container, Form, Col, Button, Card } from "react-bootstrap";
 import { getUserNames, getAuthedUserId } from "../utils/helpers";
 
 const LoginPage = () => {
@@ -26,37 +26,46 @@ const LoginPage = () => {
   console.log(`This is the selected username: ${user}`);
 
   return (
-    <Container>
+    <Container className='align-items-center'>
       <Form>
-        <Form.Group controlId='login'>
-          <Form.Row className='align-items-center'>
-            <Col xs='auto' className='my-1'>
-              <Form.Label className='mr-sm-2' srOnly>
-                Select User
-              </Form.Label>
-              <Form.Control
-                as='select'
-                className='mr-sm-2'
-                onChange={(e) => changeUser(e)}
-              >
-                <option value='0'>Choose...</option>
-                {getUserNames(users, usersKeys).map((userName) => (
-                  <option key={userName} value={userName}>
-                    {userName}
-                  </option>
-                ))}
-              </Form.Control>
-            </Col>
-            <Col xs='auto' className='my-1'>
-              <Form.Check type='checkbox' label='Remember me' custom />
-            </Col>
-            <Col xs='auto' className='my-1'>
-              <Button type='submit' onClick={handleSubmit}>
-                Submit
-              </Button>
-            </Col>
-          </Form.Row>
-        </Form.Group>
+        <Container className='text-center mt-5 mb-5'>
+          <Card>
+            <h1>Would you rather</h1>
+            <h2>Welcome</h2>
+          </Card>
+          <Card>
+            <Form.Group controlId='login'>
+              <Form.Row className='align-items-center'>
+                <Col md={{ span: 5, offset: 3 }} className='my-1'>
+                  <Form.Label className='mr-sm-2' srOnly>
+                    Select User
+                  </Form.Label>
+                  <Form.Control
+                    as='select'
+                    className='mr-sm-2'
+                    onChange={(e) => changeUser(e)}
+                  >
+                    <option value='0'>Choose a user ...</option>
+                    {getUserNames(users, usersKeys).map((userName) => (
+                      <option key={userName} value={userName}>
+                        {userName}
+                      </option>
+                    ))}
+                  </Form.Control>
+                </Col>
+                <Col xs='auto' className='my-5'>
+                  <Button
+                    className='secondary'
+                    type='submit'
+                    onClick={handleSubmit}
+                  >
+                    Login
+                  </Button>
+                </Col>
+              </Form.Row>
+            </Form.Group>
+          </Card>
+        </Container>
       </Form>
     </Container>
   );

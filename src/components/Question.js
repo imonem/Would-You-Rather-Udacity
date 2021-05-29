@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Col, Image, Row } from "react-bootstrap";
 
 function Question(qid) {
-  const authedUser = useSelector((state) => state.authedUser);
+  // const authedUser = useSelector((state) => state.authedUser);
   const { ...users } = useSelector((state) => state.users);
   const { ...questions } = useSelector((state) => state.questions);
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function Question(qid) {
           <span> {name} asks would you rather ...</span>
         </Col>
       </Row>
-      <div className='row'>
+      <Col>
         <div>{`Option one: ${question.optionOne.text}`}</div>
         <div>{`votes: ${question.optionOne.votes.length}`}</div>
         <div>{`Option two: ${question.optionTwo.text}`}</div>
@@ -36,7 +36,7 @@ function Question(qid) {
             question.timestamp
           )}`}</span>
         </div>
-      </div>
+      </Col>
     </div>
   );
 }
