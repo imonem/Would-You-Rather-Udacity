@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleAddQuestion } from "../actions/questions";
 
 function NewQuestion() {
+  const authedUser = useSelector((state) => state.authedUser);
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
   const dispatch = useDispatch();
@@ -29,7 +30,6 @@ function NewQuestion() {
 
     dispatch(handleAddQuestion(text));
 
-    console.log("New question", text);
     setOptionOneText("");
     setOptionTwoText("");
   };

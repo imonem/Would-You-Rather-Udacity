@@ -1,4 +1,8 @@
-import { RECEIVE_QUESTIONS, ADD_QUESTION } from "../actions/questions";
+import {
+  RECEIVE_QUESTIONS,
+  ADD_QUESTION,
+  ANSWER_QUESTION,
+} from "../actions/questions";
 
 export default function questions(state = {}, action) {
   switch (action.type) {
@@ -11,7 +15,19 @@ export default function questions(state = {}, action) {
       const { question } = action;
       return {
         ...state,
-        [action.question.id]: action.question,
+        [question.id]: question,
+      };
+    case ANSWER_QUESTION: //destructure please its already painfull!!!!!!!!!!!!!!!!!
+      const { answer, qid, authedUser } = action;
+      return {
+        ...state,
+        [qid]: {
+          ...state[qid],
+          [answer]: {
+            ...state[qid][answer],
+            votes: state[qid][answer].votes.concat([authedUser]),
+          },
+        },
       };
     default:
       return state;

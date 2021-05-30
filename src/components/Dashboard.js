@@ -8,11 +8,12 @@ import {
 } from "../utils/helpers";
 import Question from "./Question";
 import NewQuestion from "./NewQuestion";
+import Navmenu from "./Navmenu";
 
 const Dashboard = () => {
   const authedUser = useSelector((state) => state.authedUser);
-  const { ...questions } = useSelector((store) => store.questions);
-  const { ...users } = useSelector((store) => store.users);
+  const questions = useSelector((store) => store.questions);
+  const users = useSelector((store) => store.users);
   const dispatch = useDispatch();
   const authedUserObject = getAuthedUserId(users, authedUser);
 
@@ -29,11 +30,12 @@ const Dashboard = () => {
 
   return (
     <div className='container'>
+      <Navmenu />
       <h1>Home</h1>
       {/* todo: Implement in the navbar */}
-      <p>{getAuthedUserName(users, authedUser)}</p>
+      {/* <p>{getAuthedUserName(users, authedUser)}</p>
       <Button onClick={(e) => handleLogout(e)}>Logout</Button>
-      <Button href='/new-question'>New Question</Button>
+      <Button href='/new-question'>New Question</Button> */}
       {/* todo: Implement in the navbar */}
       <Tabs
         defaultActiveKey='unanswered'
