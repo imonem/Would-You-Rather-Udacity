@@ -1,42 +1,23 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { ListGroup, ListGroupItem, Tab, Tabs, Button } from "react-bootstrap/";
+import React from "react";
+import { withRouter } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
-  checkAnswered,
-  getAuthedUserId,
-  getAuthedUserName,
-} from "../utils/helpers";
-import Question from "./Question";
-import NewQuestion from "./NewQuestion";
-import Navmenu from "./Navmenu";
+  ListGroup,
+  ListGroupItem,
+  Tab,
+  Tabs,
+  Container,
+} from "react-bootstrap/";
+import { checkAnswered } from "../utils/helpers";
+import UnAnsweredQuestion from "./UnAnsweredQuestion";
+import QuestionDisplay from "./QuestionDisplay";
 
 const Dashboard = () => {
   const authedUser = useSelector((state) => state.authedUser);
   const questions = useSelector((store) => store.questions);
-  const users = useSelector((store) => store.users);
-  const dispatch = useDispatch();
-  const authedUserObject = getAuthedUserId(users, authedUser);
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-    console.log(authedUser);
-    return dispatch({
-      type: "SET_AUTHED_USER",
-      payload: null,
-    });
-  };
-
-  console.log(authedUserObject);
 
   return (
-    <div className='container'>
-      <Navmenu />
-      <h1>Home</h1>
-      {/* todo: Implement in the navbar */}
-      {/* <p>{getAuthedUserName(users, authedUser)}</p>
-      <Button onClick={(e) => handleLogout(e)}>Logout</Button>
-      <Button href='/new-question'>New Question</Button> */}
-      {/* todo: Implement in the navbar */}
+    <Container className='my-5'>
       <Tabs
         defaultActiveKey='unanswered'
         className='nav nav-tabs justify-content-center'
@@ -48,8 +29,8 @@ const Dashboard = () => {
           <ListGroup>
             {Object.keys(questions).map((qid) =>
               checkAnswered(questions[qid], authedUser) ? null : (
-                <ListGroupItem action key={qid}>
-                  <Question id={qid} />
+                <ListGroupItem key={qid}>
+                  <UnAnsweredQuestion key={qid} id={qid} user={authedUser} />
                   <br />
                 </ListGroupItem>
               )
@@ -61,8 +42,8 @@ const Dashboard = () => {
           <ListGroup>
             {Object.keys(questions).map((qid) =>
               checkAnswered(questions[qid], authedUser) ? (
-                <ListGroupItem action key={qid}>
-                  <Question id={qid} />
+                <ListGroupItem key={qid}>
+                  <QuestionDisplay id={qid} user={authedUser} />
                   <br />
                 </ListGroupItem>
               ) : null
@@ -70,8 +51,8 @@ const Dashboard = () => {
           </ListGroup>
         </Tab>
       </Tabs>
-    </div>
+    </Container>
   );
 };
 
-export default Dashboard;
+export default withRouter(Dashboard);

@@ -5,22 +5,26 @@ import { getUserNames, getAuthedUserId } from "../utils/helpers";
 
 const LoginPage = () => {
   const [user, setUser] = useState(null);
-  const { ...users } = useSelector((state) => state.users);
+  const users = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const usersKeys = Object.keys(users);
+  console.log(usersKeys);
 
   const changeUser = (e) => {
     setUser(e.target.value);
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const authedUser = getAuthedUserId(users, user);
-    console.log(authedUser);
-    return dispatch({
-      type: "SET_AUTHED_USER",
-      payload: authedUser,
-    });
+    if (user === null) {
+      alert("Please select a user to continue");
+    } else {
+      const authedUser = getAuthedUserId(users, user);
+      console.log(authedUser);
+      return dispatch({
+        type: "SET_AUTHED_USER",
+        payload: authedUser,
+      });
+    }
   };
 
   console.log(`This is the selected username: ${user}`);

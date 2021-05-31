@@ -1,19 +1,27 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Container, Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { handleAddQuestion } from "../actions/questions";
 
-function NewQuestion() {
-  const authedUser = useSelector((state) => state.authedUser);
+function NewQuestion({ users }) {
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
+  const [disabled, setDisabled] = useState(true);
   const dispatch = useDispatch();
 
+  //history to get back to home after answer
+  let history = useHistory();
+
+  //checks input of options text and enables/disables submit
   const handleChange = (e) => {
     const text = e.target.value;
-    // console.log(text, e.target.id);
-    // console.log(optionOneText);
-    // console.log(optionTwoText);
+
+    if (optionOneText === "" && optionTwoText === "") {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
     switch (e.target.id) {
       case "optionOne":
         return setOptionOneText(text);
@@ -29,13 +37,13 @@ function NewQuestion() {
     const text = { optionOneText, optionTwoText };
 
     dispatch(handleAddQuestion(text));
-
     setOptionOneText("");
     setOptionTwoText("");
+    history.push("/");
   };
+
   return (
     <Container className='center'>
-      {/*todo: Redirect to Dashboard on submission */}
       <h3 className='my-5'>Ask a new question</h3>
       <h4>Would you rather ...</h4>
       <Form>
@@ -56,16 +64,17 @@ function NewQuestion() {
             className='my-1'
             onChange={handleChange}
           />
-          <Button
-            as='input'
-            type='submit'
-            value='Submit'
-            size='lg'
-            className='my-3'
-            block
-            onClick={handleSubmit}
-          />
         </Form.Group>
+        <Button
+          as='input'
+          type='submit'
+          value='Submit'
+          size='lg'
+          className='my-3'
+          block
+          disabled={disabled}
+          onClick={handleSubmit}
+        />
       </Form>
     </Container>
   );

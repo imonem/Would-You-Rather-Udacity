@@ -1,42 +1,50 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, Fragment } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import LoadingBar, { hideLoading, showLoading } from "react-redux-loading";
 import { handleFetchData } from "../actions/shared";
 import Dashboard from "./Dashboard";
-import LoadingBar, { hideLoading, showLoading } from "react-redux-loading";
 import LoginPage from "./LoginPage";
 import NewQuestion from "./NewQuestion";
 import QuestionPage from "./QuestionPage";
 import Navmenu from "./Navmenu";
-import Question from "./Question";
-import Container from "react-bootstrap/Container";
+import Leaderboard from "./Leaderboard";
 
 function App() {
   const authedUser = useSelector((state) => state.authedUser);
   const dispatch = useDispatch();
-
+  // const isAppMounted = useRef(true);
+  // useEffect(() => {
+  //   return () => {
+  //     isAppMounted.current = false;
+  //   };
+  // }, []);
   useEffect(() => {
-    showLoading();
+    dispatch(showLoading());
     dispatch(handleFetchData());
-    hideLoading();
+    dispatch(hideLoading());
   }, [dispatch]);
+
+  //todo: Refactor for the sake of the loading bar
+
   return (
     <Router>
       <Fragment>
         <LoadingBar />
-        <Navmenu />
-        <Container>
-          {authedUser === null ? (
-            <LoginPage />
-          ) : (
-            <div>
+        {authedUser === null ? (
+          <LoginPage />
+        ) : (
+          <Fragment>
+            <Navmenu />
+            <Switch>
               <Route path='/' exact component={Dashboard} />
-              <Route path='/question/:id' exact component={QuestionPage} />
-              <Route path='/new' exact component={NewQuestion} />
-            </div>
-          )}
-        </Container>
+              <Route path='/question/:id' component={QuestionPage} />
+              <Route path='/new' component={NewQuestion} />
+              <Route path='/leaderboard' component={Leaderboard} />
+            </Switch>
+          </Fragment>
+        )}
       </Fragment>
     </Router>
   );

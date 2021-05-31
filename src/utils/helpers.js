@@ -11,6 +11,18 @@ export const getAuthorInfo = (q, u) => {
   }
 };
 
+//takes the current question and users object to return author avatar from users object
+export const getAuthedUserAvatar = (authedUser, users) => {
+  const usersId = Object.keys(users);
+
+  for (let i = 0; i < usersId.length; i++) {
+    const element = usersId[i];
+    if (authedUser === element) {
+      return users[element].avatarURL;
+    }
+  }
+};
+
 //take users object and keys and returns [usernames] used to populate usernames at <Login />
 export const getUserNames = (u, k) => {
   const usernames = [];
