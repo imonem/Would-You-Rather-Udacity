@@ -2,11 +2,8 @@ import { _getUsers, _getQuestions } from "../utils/_DATA";
 
 //import action creators
 import { receiveUsers } from "./users";
-import { receiveQuestions } from "./questions";
-// import { setAuthedUser } from "./authedUser";
+import { receiveQuestions } from "./actionCreators";
 import { showLoading, hideLoading } from "react-redux-loading";
-// //authed id
-// let AUTHED_ID = null;
 
 //_getUsers()
 //_getQuestions()

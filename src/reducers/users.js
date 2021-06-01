@@ -1,13 +1,43 @@
-import { RECEIVE_USERS } from "../actions/users";
+import * as actions from "../actions/actionTypes";
 
-export default function users(state = {}, action) {
+const users = (state = {}, action) => {
   switch (action.type) {
-    case RECEIVE_USERS:
+    case actions.RECEIVE_USERS:
       return {
         ...state,
         ...action.users,
       };
+    case actions.ANSWER_QUESTION:
+      const { answer, authedUser, qid } = action;
+      return {
+        ...state,
+        [authedUser]: {
+          ...state[authedUser],
+          answers: {
+            ...state[authedUser].answers,
+            [qid]: answer,
+          },
+        },
+      };
     default:
       return state;
   }
-}
+};
+
+export default users;
+
+// export default function users(state = {}, action) {
+//   switch (action.type) {
+//     case actions.RECEIVE_USERS:
+//       return {
+//         ...state,
+//         ...action.users,
+//       };
+//     case actions.ANSWER_QUESTION:
+//       return {
+//         ...state,
+//       };
+//     default:
+//       return state;
+//   }
+// }

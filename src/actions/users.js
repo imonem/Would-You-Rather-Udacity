@@ -1,9 +1,15 @@
-//Action creator to update the store for handleUserLoginData
-export const RECEIVE_USERS = "RECEIVE_USERS";
+//import action types
+import * as actions from "./actionTypes";
 
-export function receiveUsers(users) {
-  return {
-    type: RECEIVE_USERS,
-    users,
-  };
-}
+//Action creator to update the store for handleUserLoginData
+export const receiveUsers = (users) => ({
+  type: actions.RECEIVE_USERS,
+  users,
+});
+
+export const userAnswerQuestion = (authedUser, qid, answer) => ({
+  type: actions.ANSWER_QUESTION,
+  authedUser,
+  qid,
+  answer,
+});

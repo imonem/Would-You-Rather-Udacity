@@ -1,23 +1,19 @@
-import {
-  RECEIVE_QUESTIONS,
-  ADD_QUESTION,
-  ANSWER_QUESTION,
-} from "../actions/questions";
+import * as actions from "../actions/actionTypes";
 
 export default function questions(state = {}, action) {
   switch (action.type) {
-    case RECEIVE_QUESTIONS:
+    case actions.RECEIVE_QUESTIONS:
       return {
         ...state,
         ...action.questions,
       };
-    case ADD_QUESTION:
+    case actions.ADD_QUESTION:
       const { question } = action;
       return {
         ...state,
         [question.id]: question,
       };
-    case ANSWER_QUESTION: //destructure please its already painfull!!!!!!!!!!!!!!!!!
+    case actions.ANSWER_QUESTION: //destructure please its already painfull!!!!!!!!!!!!!!!!!
       const { answer, qid, authedUser } = action;
       return {
         ...state,

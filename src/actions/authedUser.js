@@ -1,8 +1,8 @@
-export const SET_AUTHED_USER = "SET_AUTHED_USER";
+import * as actions from "./actionTypes";
 
 export function setAuthedUser(id) {
   return {
-    type: SET_AUTHED_USER,
+    type: actions.SET_AUTHED_USER,
     id,
   };
 }
