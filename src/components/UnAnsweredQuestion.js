@@ -13,7 +13,8 @@ function UnAnsweredQuestion(qid) {
 
   //display user name and avatar
   const question = questions[qid.id];
-  const [name, avatar] = getAuthorInfo(question, users);
+
+  const [name, avatar] = getAuthorInfo(question, users); // todo: Refactor??
 
   //route to question id
   const handleSubmit = (e) => {

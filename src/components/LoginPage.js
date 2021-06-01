@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Form, Col, Button, Card } from "react-bootstrap";
-import { getUserNames, getAuthedUserId } from "../utils/helpers";
 
 const LoginPage = () => {
   const [user, setUser] = useState(null);
@@ -18,7 +17,7 @@ const LoginPage = () => {
     if (user === null) {
       alert("Please select a user to continue");
     } else {
-      const authedUser = getAuthedUserId(users, user);
+      const [authedUser] = Object.values(users).filter((u) => u.id === user); //Note: Destructure to keep it in Object form
       console.log(authedUser);
       return dispatch({
         type: "SET_AUTHED_USER",
@@ -50,9 +49,9 @@ const LoginPage = () => {
                     onChange={(e) => changeUser(e)}
                   >
                     <option value='0'>Choose a user ...</option>
-                    {getUserNames(users, usersKeys).map((userName) => (
-                      <option key={userName} value={userName}>
-                        {userName}
+                    {Object.values(users).map((u) => (
+                      <option key={u.id} value={u.id}>
+                        {u.name}
                       </option>
                     ))}
                   </Form.Control>

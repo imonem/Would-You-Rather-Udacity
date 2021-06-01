@@ -7,7 +7,6 @@ import { handleAddQuestion } from "../actions/questions";
 function NewQuestion({ users }) {
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
-  const [disabled, setDisabled] = useState(true);
   const dispatch = useDispatch();
 
   //history to get back to home after answer
@@ -17,11 +16,6 @@ function NewQuestion({ users }) {
   const handleChange = (e) => {
     const text = e.target.value;
 
-    if (optionOneText === "" && optionTwoText === "") {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
     switch (e.target.id) {
       case "optionOne":
         return setOptionOneText(text);
@@ -33,9 +27,7 @@ function NewQuestion({ users }) {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     const text = { optionOneText, optionTwoText };
-
     dispatch(handleAddQuestion(text));
     setOptionOneText("");
     setOptionTwoText("");
@@ -72,7 +64,7 @@ function NewQuestion({ users }) {
           size='lg'
           className='my-3'
           block
-          disabled={disabled}
+          disabled={!(optionOneText && optionTwoText)}
           onClick={handleSubmit}
         />
       </Form>

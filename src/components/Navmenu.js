@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import Nav from "react-bootstrap/Nav";
 import { Button, Image, Col } from "react-bootstrap/";
 import Navbar from "react-bootstrap/Navbar";
-import { Link, NavLink, useHistory } from "react-router-dom";
-import { getAuthedUserAvatar, getAuthedUserName } from "../utils/helpers";
+import { Link, NavLink } from "react-router-dom";
 
 function Navigation() {
   const authedUser = useSelector((state) => state.authedUser);
-  const users = useSelector((store) => store.users);
   const dispatch = useDispatch();
+
+  const { name, avatarURL } = authedUser;
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ function Navigation() {
         <NavLink to='/' exact activeClassName='active' className='mr-sm-2'>
           Dashboard
         </NavLink>
-        <NavLink to='/new' activeClassName='active' className='mr-sm-2'>
+        <NavLink to='/add' activeClassName='active' className='mr-sm-2'>
           New Question
         </NavLink>
         <NavLink to='/leaderboard' activeClassName='active' className='mr-sm-2'>
@@ -33,12 +33,8 @@ function Navigation() {
         </NavLink>
       </Nav>
       <Col md={2}>
-        <Image
-          src={getAuthedUserAvatar(authedUser, users)}
-          roundedCircle
-          style={{ maxWidth: `50px` }}
-        />
-        <p>{getAuthedUserName(users, authedUser)}</p>
+        <Image src={avatarURL} roundedCircle style={{ maxWidth: `50px` }} />
+        <p>{name}</p>
       </Col>
       <Button onClick={(e) => handleLogout(e)}>
         <Link to='/' style={{ color: `white` }}>

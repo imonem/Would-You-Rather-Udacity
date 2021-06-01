@@ -1,15 +1,24 @@
 import React from "react";
 import { getAuthorInfo, formatTime } from "../utils/helpers";
 import { useSelector } from "react-redux";
-import { Form, Col, Image, Row } from "react-bootstrap";
+import { Form, Col, Image, Row, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
-function QuestionDisplay(qid) {
+function AnsweredQuestion(qid) {
   const users = useSelector((state) => state.users);
   const questions = useSelector((state) => state.questions);
+
+  //redirect to Questions page
+  let history = useHistory();
 
   //display user name and avatar
   const question = questions[qid.id];
   const [name, avatar] = getAuthorInfo(question, users);
+
+  //route to question id
+  const handleSubmit = (e) => {
+    history.push(`/question/${qid.id}`);
+  };
 
   return (
     <div className='container'>
@@ -27,15 +36,14 @@ function QuestionDisplay(qid) {
       <Col className='align-content-start'>
         <Form.Group>
           {/**todo: handle infographics display */}
-          {/* <Button
+          <Button
             onClick={handleSubmit}
-            value={submitButtonValue}
-            title='Submit'
+            title='View details'
             type='Submit'
             className='my-3'
           >
-            Answer
-          </Button> */}
+            View Poll Results
+          </Button>
         </Form.Group>
       </Col>
       <Col>
@@ -49,4 +57,4 @@ function QuestionDisplay(qid) {
   );
 }
 
-export default QuestionDisplay;
+export default AnsweredQuestion;

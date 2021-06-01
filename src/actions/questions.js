@@ -25,7 +25,6 @@ function answerQuestion({ authedUser, qid, answer }) {
 
 //Asynchronous function to handle answering a question to Store
 export function handleAnswerQuestion(qAnswer) {
-  console.log(qAnswer);
   return (dispatch) => {
     dispatch(showLoading());
     dispatch(answerQuestion(qAnswer));
@@ -42,13 +41,12 @@ export function handleAnswerQuestion(qAnswer) {
 export function handleAddQuestion(question) {
   return (dispatch, getState) => {
     const { authedUser } = getState();
-    console.log(authedUser, question);
 
     dispatch(showLoading());
 
     return _saveQuestion({
       ...question,
-      author: authedUser,
+      author: authedUser.id,
     })
       .then((question) => dispatch(addQuestion(question)))
       .then(() => dispatch(hideLoading()));

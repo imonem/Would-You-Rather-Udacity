@@ -8,13 +8,33 @@ import {
   Tabs,
   Container,
 } from "react-bootstrap/";
-import { checkAnswered } from "../utils/helpers";
 import UnAnsweredQuestion from "./UnAnsweredQuestion";
-import QuestionDisplay from "./QuestionDisplay";
+import AnsweredQuestion from "./AnsweredQuestion";
 
 const Dashboard = () => {
-  const authedUser = useSelector((state) => state.authedUser);
-  const questions = useSelector((store) => store.questions);
+  const authedUser = useSelector((state) => state.authedUser); //Note: spreading of authedUser is important, at <Login /> we iterated using Object.values
+  const questions = useSelector((state) => state.questions);
+
+  //Note: answered or not, it only matters to the authedUser, and not objects in children
+
+  const handleUnAnsweredQuestions = (questionsObject, id) => {
+    const handledQuestions = Object.values(questionsObject)
+      .sort((a, b) => b.timestamp - a.timestamp)
+      .filter(
+        (q) =>
+          !q.optionOne.votes.includes(id) && !q.optionTwo.votes.includes(id)
+      );
+    return handledQuestions;
+  };
+
+  const handleAnsweredQuestions = (questionsObject, id) => {
+    const handledQuestions = Object.values(questionsObject)
+      .sort((a, b) => b.timestamp - a.timestamp)
+      .filter(
+        (q) => q.optionOne.votes.includes(id) || q.optionTwo.votes.includes(id)
+      );
+    return handledQuestions;
+  };
 
   return (
     <Container className='my-5'>
@@ -27,27 +47,23 @@ const Dashboard = () => {
         <Tab eventKey='unanswered' title='Unanswered'>
           <br />
           <ListGroup>
-            {Object.keys(questions).map((qid) =>
-              checkAnswered(questions[qid], authedUser) ? null : (
-                <ListGroupItem key={qid}>
-                  <UnAnsweredQuestion key={qid} id={qid} user={authedUser} />
-                  <br />
-                </ListGroupItem>
-              )
-            )}
+            {handleUnAnsweredQuestions(questions, authedUser.id).map((q) => (
+              <ListGroupItem key={q.id}>
+                <UnAnsweredQuestion id={q.id} user={authedUser.id} />
+                <br />
+              </ListGroupItem>
+            ))}
           </ListGroup>
         </Tab>
         <Tab eventKey='answered' title='Answered'>
           <br />
           <ListGroup>
-            {Object.keys(questions).map((qid) =>
-              checkAnswered(questions[qid], authedUser) ? (
-                <ListGroupItem key={qid}>
-                  <QuestionDisplay id={qid} user={authedUser} />
-                  <br />
-                </ListGroupItem>
-              ) : null
-            )}
+            {handleAnsweredQuestions(questions, authedUser.id).map((q) => (
+              <ListGroupItem key={q.id}>
+                <AnsweredQuestion id={q.id} user={authedUser.id} />
+                <br />
+              </ListGroupItem>
+            ))}
           </ListGroup>
         </Tab>
       </Tabs>

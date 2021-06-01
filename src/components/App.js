@@ -1,6 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, Fragment } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBar, { hideLoading, showLoading } from "react-redux-loading";
 import { handleFetchData } from "../actions/shared";
@@ -8,6 +13,7 @@ import Dashboard from "./Dashboard";
 import LoginPage from "./LoginPage";
 import NewQuestion from "./NewQuestion";
 import QuestionPage from "./QuestionPage";
+import CustomError from "./CustomError";
 import Navmenu from "./Navmenu";
 import Leaderboard from "./Leaderboard";
 
@@ -40,8 +46,10 @@ function App() {
             <Switch>
               <Route path='/' exact component={Dashboard} />
               <Route path='/question/:id' component={QuestionPage} />
-              <Route path='/new' component={NewQuestion} />
+              <Route path='/add' component={NewQuestion} />
               <Route path='/leaderboard' component={Leaderboard} />
+              <Route path='/404' component={CustomError} />
+              <Redirect to='/404' />
             </Switch>
           </Fragment>
         )}

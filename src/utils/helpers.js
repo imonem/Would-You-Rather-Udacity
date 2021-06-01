@@ -23,7 +23,7 @@ export const getAuthedUserAvatar = (authedUser, users) => {
   }
 };
 
-//take users object and keys and returns [usernames] used to populate usernames at <Login />
+//take users object and keys and returns [usernames] used to populate usernames at <Login /> --- REDUNDANT/REFACTORED
 export const getUserNames = (u, k) => {
   const usernames = [];
   for (let i = 0; i < k.length; i++) {
@@ -33,7 +33,7 @@ export const getUserNames = (u, k) => {
   return usernames;
 };
 
-//take users object and username and returns authedUser
+//take users object and username and returns authedUser--- REDUNDANT/REFACTORED
 export const getAuthedUserId = (u, k) => {
   for (const key in u) {
     if (u[key].name === k) {
@@ -42,7 +42,7 @@ export const getAuthedUserId = (u, k) => {
   }
 };
 
-//take users object and userid and returns authedUserName
+//take users object and userid and returns authedUserName--- REDUNDANT/REFACTORED
 export const getAuthedUserName = (u, k) => {
   for (const key in u) {
     if (u[key].id === k) {
@@ -51,7 +51,7 @@ export const getAuthedUserName = (u, k) => {
   }
 };
 
-//takes the authedUser and returns if question is answered or not, used in <Dashboard/>
+//takes the question and authedUser then returns if question is answered or not, used in <QuestionPage /> --- REDUNDANT/REFACTORED in <Dashboard />
 export const checkAnswered = (q, u) => {
   const question = q;
   let votes = [...question.optionOne.votes, ...question.optionTwo.votes];
@@ -59,6 +59,32 @@ export const checkAnswered = (q, u) => {
     return false;
   }
   return true;
+};
+
+//takes the authedUser and returns and array of number of votes on each option and which authedUser voted, used in <QuestionDetails/>
+export const countVotes = (q, u, users) => {
+  const votesOne = [...q.optionOne.votes];
+  const votesTwo = [...q.optionTwo.votes];
+  const totalUsers = Object.keys(users).filter(
+    (u) => votesOne.includes(u) || votesTwo.includes(u)
+  ).length;
+
+  let authedUserVote = "";
+  if (votesOne.includes(u) === true) {
+    authedUserVote = `You voted for ${q.optionOne.text}`;
+  } else {
+    if (votesTwo.includes(u) === true) {
+      authedUserVote = `You voted for ${q.optionTwo.text}`;
+    }
+  }
+
+  return [
+    votesOne.length,
+    votesTwo.length,
+    (votesOne.length / totalUsers) * 100,
+    (votesTwo.length / totalUsers) * 100,
+    authedUserVote,
+  ];
 };
 
 //format question date used in <Question/>

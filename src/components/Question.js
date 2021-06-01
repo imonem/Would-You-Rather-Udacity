@@ -6,7 +6,7 @@ import { Form, Col, Image, Row, Button } from "react-bootstrap";
 import { handleAnswerQuestion } from "../actions/questions";
 
 function Question(qid) {
-  const { authedUser } = useSelector((state) => state);
+  const authedUser = useSelector((state) => state.authedUser);
   const users = useSelector((state) => state.users);
   const questions = useSelector((state) => state.questions);
   const dispatch = useDispatch();
@@ -48,12 +48,12 @@ function Question(qid) {
     if (e.target.value === false) {
       return alert("Please choose and answer or press back.");
     } else {
-      const answerObject = { authedUser, qid: qid.id, answer };
+      const answerObject = { authedUser: authedUser.id, qid: qid.id, answer };
       console.log(answerObject);
       dispatch(handleAnswerQuestion(answerObject));
     }
 
-    history.push("/");
+    history.push(`/question/${qid.id}`);
   };
 
   return (
