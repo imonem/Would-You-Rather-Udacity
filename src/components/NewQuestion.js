@@ -4,7 +4,7 @@ import { Container, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { handleAddQuestion } from "../actions/questions";
 
-function NewQuestion({ users }) {
+function NewQuestion() {
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
   const dispatch = useDispatch();

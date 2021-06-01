@@ -18,7 +18,7 @@ function UnAnsweredQuestion(qid) {
 
   //route to question id
   const handleSubmit = (e) => {
-    history.push(`/question/${qid.id}`);
+    history.push(`/questions/${qid.id}`);
   };
 
   return (

@@ -15,8 +15,8 @@ import { showLoading, hideLoading } from "react-redux-loading";
 
 //action creator to get users login information from server - video #2 lesson 7 concept 6
 export function handleFetchData() {
-  showLoading();
   return (dispatch) => {
+    dispatch(showLoading());
     _getUsers()
       .then((users) => {
         dispatch(receiveUsers(users));
@@ -24,9 +24,9 @@ export function handleFetchData() {
       .then(
         _getQuestions().then((questions) => {
           dispatch(receiveQuestions(questions));
+          dispatch(hideLoading());
         })
       );
-    hideLoading();
   };
 }
 

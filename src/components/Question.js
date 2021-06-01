@@ -53,7 +53,7 @@ function Question(qid) {
       dispatch(handleAnswerQuestion(answerObject));
     }
 
-    history.push(`/question/${qid.id}`);
+    history.push(`/questions/${qid.id}`);
   };
 
   return (

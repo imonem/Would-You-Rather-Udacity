@@ -45,7 +45,7 @@ function App() {
             <Navmenu />
             <Switch>
               <Route path='/' exact component={Dashboard} />
-              <Route path='/question/:id' component={QuestionPage} />
+              <Route path='/questions/:id' component={QuestionPage} />
               <Route path='/add' component={NewQuestion} />
               <Route path='/leaderboard' component={Leaderboard} />
               <Route path='/404' component={CustomError} />

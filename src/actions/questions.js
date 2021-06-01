@@ -32,7 +32,7 @@ export function handleAnswerQuestion(qAnswer) {
       .then(dispatch(hideLoading()))
       .catch((e) => {
         console.warn("Error in handleAnswerQuestion: ", e);
-        dispatch(answerQuestion(qAnswer));
+        // dispatch(answerQuestion(qAnswer));
       });
   };
 }
@@ -40,7 +40,7 @@ export function handleAnswerQuestion(qAnswer) {
 //Asynchronous function to handle adding new question to Store
 export function handleAddQuestion(question) {
   return (dispatch, getState) => {
-    const { authedUser } = getState();
+    const authedUser = getState();
 
     dispatch(showLoading());
 
