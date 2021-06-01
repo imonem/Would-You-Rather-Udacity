@@ -17,7 +17,7 @@ function AnsweredQuestion(qid) {
 
   //route to question id
   const handleSubmit = (e) => {
-    history.push(`/question/${qid.id}`);
+    history.push(`/questions/${qid.id}`);
   };
 
   return (
@@ -38,7 +38,7 @@ function AnsweredQuestion(qid) {
           {/**todo: handle infographics display */}
           <Button
             onClick={handleSubmit}
-            title='View details'
+            title={qid.id}
             type='Submit'
             className='my-3'
           >
