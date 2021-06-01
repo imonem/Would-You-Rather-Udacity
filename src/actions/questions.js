@@ -1,6 +1,6 @@
 //import action creators
 import { addQuestion, answerQuestion } from "./actionCreators";
-import { userAnswerQuestion } from "./users";
+import { userAnswerQuestion, userAddQuestion } from "./users";
 
 //import API functions to save new question and new question answers
 import { _saveQuestion, _saveQuestionAnswer } from "../utils/_DATA";
@@ -44,6 +44,22 @@ export const handleAddQuestion = (question) => {
       author: authedUser.id,
     })
       .then((question) => dispatch(addQuestion(question)))
+      .then(() => dispatch(hideLoading()));
+  };
+};
+
+//Asynchronous function to handle user asking a new question to Store
+export const handleUserAddQuestion = (question) => {
+  return (dispatch, getState) => {
+    const { authedUser } = getState();
+    console.log(`From handleUserAddQuestion, authedUser: `, authedUser);
+    dispatch(showLoading());
+
+    return _saveQuestion({
+      ...question,
+      author: authedUser.id,
+    })
+      .then((question) => dispatch(userAddQuestion(question)))
       .then(() => dispatch(hideLoading()));
   };
 };

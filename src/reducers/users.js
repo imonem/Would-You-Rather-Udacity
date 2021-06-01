@@ -1,6 +1,7 @@
 import * as actions from "../actions/actionTypes";
 
 const users = (state = {}, action) => {
+  const { answer, authedUser, qid, question } = action;
   switch (action.type) {
     case actions.RECEIVE_USERS:
       return {
@@ -8,7 +9,6 @@ const users = (state = {}, action) => {
         ...action.users,
       };
     case actions.ANSWER_QUESTION:
-      const { answer, authedUser, qid } = action;
       return {
         ...state,
         [authedUser]: {
@@ -17,6 +17,14 @@ const users = (state = {}, action) => {
             ...state[authedUser].answers,
             [qid]: answer,
           },
+        },
+      };
+    case actions.ADD_QUESTION:
+      return {
+        ...state,
+        [question.author]: {
+          ...state[question.author],
+          questions: state[question.author].questions.concat([question.id]),
         },
       };
     default:

@@ -13,3 +13,7 @@ export const userAnswerQuestion = (authedUser, qid, answer) => ({
   qid,
   answer,
 });
+export const userAddQuestion = (question) => ({
+  type: actions.ANSWER_QUESTION,
+  question,
+});
