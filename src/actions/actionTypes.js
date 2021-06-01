@@ -1,4 +1,4 @@
-//Action creators
+//Action types
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const ADD_QUESTION = "ADD_QUESTION";
 export const ANSWER_QUESTION = "ANSWER_QUESTION";

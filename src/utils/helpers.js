@@ -11,46 +11,6 @@ export const getAuthorInfo = (q, u) => {
   }
 };
 
-//takes the current question and users object to return author avatar from users object
-export const getAuthedUserAvatar = (authedUser, users) => {
-  const usersId = Object.keys(users);
-
-  for (let i = 0; i < usersId.length; i++) {
-    const element = usersId[i];
-    if (authedUser === element) {
-      return users[element].avatarURL;
-    }
-  }
-};
-
-//take users object and keys and returns [usernames] used to populate usernames at <Login /> --- REDUNDANT/REFACTORED
-export const getUserNames = (u, k) => {
-  const usernames = [];
-  for (let i = 0; i < k.length; i++) {
-    const element = k[i];
-    usernames.push(u[element].name);
-  }
-  return usernames;
-};
-
-//take users object and username and returns authedUser--- REDUNDANT/REFACTORED
-export const getAuthedUserId = (u, k) => {
-  for (const key in u) {
-    if (u[key].name === k) {
-      return u[key].id;
-    }
-  }
-};
-
-//take users object and userid and returns authedUserName--- REDUNDANT/REFACTORED
-export const getAuthedUserName = (u, k) => {
-  for (const key in u) {
-    if (u[key].id === k) {
-      return u[key].name;
-    }
-  }
-};
-
 //takes the question and authedUser then returns if question is answered or not, used in <QuestionPage /> --- REDUNDANT/REFACTORED in <Dashboard />
 export const checkAnswered = (q, u) => {
   const question = q;
@@ -87,7 +47,7 @@ export const countVotes = (q, u, users) => {
   ];
 };
 
-//format question date used in <Question/>
+//format question date used in all modules that display a question component
 export const formatTime = (timestamp) => {
   const d = new Date(timestamp);
   const time = d.toLocaleTimeString("en-US");

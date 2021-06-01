@@ -1,6 +1,6 @@
 //import action creators
-import { addQuestion, answerQuestion } from "./actionCreators";
-import { userAnswerQuestion, userAddQuestion } from "./users";
+import { addQuestion, answerQuestion } from "./questionsActionCreators";
+import { userAnswerQuestion, userAddQuestion } from "./usersActionsCreators";
 
 //import API functions to save new question and new question answers
 import { _saveQuestion, _saveQuestionAnswer } from "../utils/_DATA";
