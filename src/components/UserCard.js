@@ -2,13 +2,6 @@ import React from "react";
 import { Card, Container, ListGroup } from "react-bootstrap";
 
 const UserCard = ({ name, avatar, qAsk, qAnswer }) => {
-  //   console.log(
-  //     `From Card these are the received vals: `,
-  //     name,
-  //     avatar,
-  //     qAsk,
-  //     qAnswer
-  //   );
   return (
     <Container>
       <Card>
