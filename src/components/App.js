@@ -45,10 +45,10 @@ function App() {
             <Navmenu />
             <Switch>
               <Route path='/' exact component={Dashboard} />
-              <Route path='/questions/:id' component={QuestionPage} />
-              <Route path='/add' component={NewQuestion} />
-              <Route path='/leaderboard' component={Leaderboard} />
-              <Route path='/404' component={CustomError} />
+              <Route path='/questions/:id' exact component={QuestionPage} />
+              <Route path='/add' exact component={NewQuestion} />
+              <Route path='/leaderboard' exact component={Leaderboard} />
+              <Route path='*' component={CustomError} />
               <Redirect to='/404' />
             </Switch>
           </Fragment>

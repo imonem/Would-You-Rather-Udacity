@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { getAuthorInfo, formatTime } from "../utils/helpers";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Col, Image, Row, Button } from "react-bootstrap";
 import { handleAnswerQuestion } from "../actions/questions";
 
-function Question(qid) {
+function Question() {
+  const { id } = useParams();
   const authedUser = useSelector((state) => state.authedUser);
   const users = useSelector((state) => state.users);
   const questions = useSelector((state) => state.questions);
@@ -15,7 +16,7 @@ function Question(qid) {
   let history = useHistory();
 
   //display user name and avatar
-  const question = questions[qid.id];
+  const question = questions[id];
   const [name, avatar] = getAuthorInfo(question, users);
 
   //component state
@@ -48,12 +49,12 @@ function Question(qid) {
     if (e.target.value === false) {
       return alert("Please choose and answer or press back.");
     } else {
-      const answerObject = { authedUser: authedUser.id, qid: qid.id, answer };
+      const answerObject = { authedUser: authedUser.id, id: id, answer };
       console.log(answerObject);
       dispatch(handleAnswerQuestion(answerObject));
     }
 
-    history.push(`/questions/${qid.id}`);
+    history.push(`/questions/${id}`);
   };
 
   return (
@@ -73,7 +74,7 @@ function Question(qid) {
         <Form.Group>
           <Form.Check
             type={"radio"}
-            id={`${qid.id}-1`}
+            id={`${id}-1`}
             label={`${question.optionOne.text}`}
             value={"optionOne"}
             checked={radioOne}
@@ -82,7 +83,7 @@ function Question(qid) {
           />
           <Form.Check
             type={"radio"}
-            id={`${qid.id}-2`}
+            id={`${id}-2`}
             label={`${question.optionTwo.text}`}
             value={"optionTwo"}
             checked={radioTwo}
