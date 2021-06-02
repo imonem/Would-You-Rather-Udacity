@@ -51,7 +51,7 @@ To build the application run
 ## Built With
 
 * [ReactJS](https://reactjs.org/) - A JavaScript library for building user interfaces
-* [Maven](https://nodejs.org/) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+* [Node](https://nodejs.org/) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 * [Redux](https://redux.js.org/) - A Predictable State Container for JS Apps
 
 ## Versioning
